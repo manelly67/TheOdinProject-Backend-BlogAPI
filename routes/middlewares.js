@@ -7,7 +7,7 @@ module.exports.isAuth = (req, res, next) => {
 };
 
 module.exports.roleAuthor = (req, res, next) => {
-  const { role } = req.body.user;
+  const { role } = req.user;
   if (role === "AUTHOR") {
     next();
   } else {
