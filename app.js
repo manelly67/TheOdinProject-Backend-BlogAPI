@@ -16,6 +16,7 @@ app.use(cors({origin:"http://localhost:5173",allowedHeaders:['Content-Type', 'Au
 app.use(
   session({
     cookie: {
+      SameSite: none,
       maxAge: 1000 * 60 * 60, // Equals 1 hour - 60min/1hrs - 60seg/1min - 1000ms/1seg
     },
     secret: "some secret",
