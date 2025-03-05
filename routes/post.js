@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/", postsController.get);
 
-router.get("/new", isAuth, roleAuthor, verifyToken, postsController.getNew);
+router.get("/new", verifyToken, postsController.getNew);
 router.post("/new", isAuth, roleAuthor, verifyToken, postsController.postNew);
 
 router.get("/:authorid", authoridIsNumber, postsController.getByAuthor);
