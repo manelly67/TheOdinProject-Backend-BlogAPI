@@ -1,21 +1,26 @@
-module.exports.isAuth = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    res.status(403).json({ text: "loging in your account" });
-  }
-};
+const jwt = require("jsonwebtoken");
+const db_users = require("../prisma_queries/users");
 
 module.exports.roleAuthor = (req, res, next) => {
-  const { role } = req.user;
-  if (role === "AUTHOR") {
-    next();
-  } else {
-    res
-      .status(403)
-      .json({ text: "you are not authorized to view this content" });
-  }
+  jwt.verify(req.token, secret_key, async(err, authData) => {
+    if (err) {
+      res.status(403).json({
+        errors: err,
+      });
+    } else {
+      const user = await db_users.getUserFromId(Number(authData.userId));
+      const { role } = user;
+      if (role === "AUTHOR") {
+        next();
+      } else {
+        res
+          .status(403)
+          .json({ text: "you are not authorized to view this content" });
+      }
+    }
+  });
 };
+
 
 module.exports.useridIsNumber = (req, res, next) => {
   let { userid } = req.params;
