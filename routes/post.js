@@ -6,8 +6,8 @@ const router = Router();
 
 router.get("/", postsController.get);
 
-router.get("/new", roleAuthor, verifyToken, postsController.getNew);
-router.post("/new", isAuth, roleAuthor, verifyToken, postsController.postNew);
+router.get("/new", verifyToken, postsController.getNew);
+router.post("/new", roleAuthor, verifyToken, postsController.postNew);
 
 router.get("/:authorid", authoridIsNumber, postsController.getByAuthor);
 
@@ -17,7 +17,6 @@ router.get("/:authorid/:postid/comments", authoridIsNumber);
 
 router.put(
   "/:authorid/:postid",
-  isAuth,
   roleAuthor,
   verifyToken,
   postsController.updatePost
@@ -25,7 +24,6 @@ router.put(
 
 router.delete(
   "/:authorid/:postid",
-  isAuth,
   roleAuthor,
   verifyToken,
   postsController.deletePost
