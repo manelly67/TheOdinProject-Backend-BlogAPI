@@ -3,7 +3,7 @@ module.exports.useridIsNumber = (req, res, next) => {
   let { userid } = req.params;
   userid = Number(userid);
 
-  if (!Number.isNaN(userid)) {
+  if (Number.isNaN(userid)) {
     // check is a value is equal NaN
     res.status(400).json({
       text: "the user id must be a number",
@@ -17,7 +17,7 @@ module.exports.authoridIsNumber = (req, res, next) => {
   let { authorid } = req.params;
   authorid = Number(authorid);
 
-  if (!Number.isNaN(authorid)) {
+  if (Number.isNaN(authorid)) {
     // check is a value is equal NaN
     res.status(400).json({
       text: "the author id must be a number",
