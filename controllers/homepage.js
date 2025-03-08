@@ -26,14 +26,17 @@ async function getMyWork(req, res) {
         err: err,
       });
     } else {
-      const user = await db_users.getUserFromId(Number(authData.userId));
-      return res.status(200).json({
+      return authData;
+    }
+  });
+  if (authData.statusCode !== 403) {
+    const user = await db_users.getUserFromId(Number(authData.userId));
+    return res.status(200).json({
         title: "BLOG | MY WORKSPACE",
         user: user,
         authData,
       });
-    }
-  });
+  }
 }
 
 module.exports = {
