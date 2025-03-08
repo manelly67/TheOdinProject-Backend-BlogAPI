@@ -5,6 +5,7 @@ require("dotenv").config({ processEnv: myObject });
 const secret_key = process.env.SECRET_KEY || myObject.SECRET_KEY;
 
 const db_posts = require("../prisma_queries/posts");
+const db_users = require("../prisma_queries/users");
 
 // GET /
 async function get(req, res) {
@@ -25,9 +26,10 @@ async function getMyWork(req, res) {
         err: err,
       });
     } else {
+      const user = await db_users.getUserFromId(Number(authData.userId));
       return res.status(200).json({
         title: "BLOG | MY WORKSPACE",
-        user: req.user,
+        user: user,
         authData,
       });
     }
