@@ -85,7 +85,7 @@ async function getPostFromId(id) {
 };
 
 async function createNewPost(req,res,id,authData) {
-      const str = String(req.body.published);
+      const str = req.body.published;
       const bool = str.toLowerCase() === "true";
    await prisma.post.create({
     data: {
@@ -118,7 +118,7 @@ async function createNewPost(req,res,id,authData) {
 };
 
 async function updatePost(req,res,postid) {
-    const str = String(req.body.published);
+    const str = req.body.published;
     const bool = str.toLowerCase() === "true";
   await prisma.post.update({
     where:{
