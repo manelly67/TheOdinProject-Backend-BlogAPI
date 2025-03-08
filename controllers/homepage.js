@@ -20,7 +20,7 @@ async function get(req, res) {
 
 // Following routes require authentication
 async function getMyWork(req, res) {
-  jwt.verify(req.token, secret_key, (err, authData) => {
+ const authData = jwt.verify(req.token, secret_key, (err, authData) => {
     if (err) {
       return res.status(403).json({
         err: err,
