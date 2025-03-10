@@ -84,9 +84,7 @@ async function getPostFromId(id) {
   });
 };
 
-async function createNewPost(req,res,id,authData) {
-      const str = req.body.published;
-      const bool = str.toLowerCase() === "true";
+async function createNewPost(req,res,id,bool,authData) {
    await prisma.post.create({
     data: {
       id: id,
@@ -117,9 +115,7 @@ async function createNewPost(req,res,id,authData) {
   
 };
 
-async function updatePost(req,res,postid) {
-    const str = req.body.published;
-    const bool = str.toLowerCase() === "true";
+async function updatePost(req,res,postid,bool) {
   await prisma.post.update({
     where:{
       id: postid,
