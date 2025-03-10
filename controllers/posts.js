@@ -99,7 +99,10 @@ const postNew = [
         });
       }
       const id = uuidv4();
-      await db_posts.createNewPost(req, res, id, authData);
+      const received = req.body.published;
+      const str = received.toString();
+      const bool = str.toLowerCase() === "true";
+      await db_posts.createNewPost(req, res, id, bool, authData);
     }
   },
 ];
@@ -129,7 +132,10 @@ const updatePost = [
               errors: errors.array(),
             });
           }
-          await db_posts.updatePost(req, res, postid);
+          const received = req.body.published;
+          const str = received.toString();
+          const bool = str.toLowerCase() === "true";
+          await db_posts.updatePost(req, res, postid, bool);
           break;
         }
         case false:
