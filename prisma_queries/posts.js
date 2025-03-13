@@ -72,6 +72,8 @@ async function getPostFromId(id) {
       authorId:true,
       comments:{
         select:{
+          id: true,
+          createdAt: true,
           text: true,
           user:{
             select:{
