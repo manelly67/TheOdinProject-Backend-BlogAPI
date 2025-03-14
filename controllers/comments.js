@@ -224,6 +224,7 @@ const updatebyId = [
 
 async function deleteById(req, res) {
   const { commentid } = req.params;
+  const { postid } = req.params;
   const commentExists = await db_comments.commentExists(commentid);
   switch (commentExists) {
     case false:
@@ -249,16 +250,27 @@ async function deleteById(req, res) {
               await db_comments.deleteById(req,res,commentid);
               break;
             case false:
-              res.status(400).json({
-                text: "Comment can only be deleted by its author",
-              });
-              break;
+              {
+              const post = await db_posts.getPostFromId(postid);
+              switch(Number(authData.userId) === Number(post.authorId)){
+                case true:
+                  await db_comments.deleteById(req,res,commentid);
+                break;
+                case false:
+                  res.status(400).json({
+                    text: "Comment can only be deleted by its author or by the post owner",
+                  });
+                break;
+              }
+            }
+            break;
           }
         }
       }
       break;
   }
 }
+
 
 module.exports = {
   getByUser,
