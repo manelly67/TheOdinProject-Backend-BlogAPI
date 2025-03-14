@@ -251,7 +251,7 @@ async function deleteById(req, res) {
               break;
             case false:
               {
-              const post = await db_posts.getPostFromId(postid);
+              const [post] = await db_posts.getPostFromId(postid);
               switch(Number(authData.userId) === Number(post.authorId)){
                 case true:
                   await db_comments.deleteById(req,res,commentid);
