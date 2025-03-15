@@ -11,7 +11,7 @@ const routes = require("./routes");
 
 const app = express();
 // Enable All CORS Requests
-app.use(cors({origin:"http://localhost:5173",allowedHeaders:['Content-Type', 'Authorization','Connection'],credentials:true}));
+app.use(cors({origin:["https://blog-authors-manelly67.netlify.app","http://localhost:5173"],allowedHeaders:['Content-Type', 'Authorization','Connection'],credentials:true}));
 
 app.use(
   session({
